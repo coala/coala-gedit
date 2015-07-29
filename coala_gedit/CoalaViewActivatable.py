@@ -22,6 +22,20 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
         GObject.Object.__init__(self)
         self.log_printer = LogPrinter(ConsolePrinter())
 
+    def analyze(self):
+        """
+        This function fetches the location of the file in this view
+        and runs coala on it.
+        """
+        document = self.view.get_buffer()
+        location = document.get_location()
+        if location == None:
+            self.log_printer.warn("coala cannot run on unsaved files")
+            return
+
+        results = CoalaViewActivatable.run_coala(location.get_path())
+
+
     @staticmethod
     def run_coala(path):
         """
