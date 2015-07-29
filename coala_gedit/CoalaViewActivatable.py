@@ -22,6 +22,13 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
         GObject.Object.__init__(self)
         self.log_printer = LogPrinter(ConsolePrinter())
 
+    def do_activate(self):
+        """
+        This function is called when the view is created - it will
+        be called only once in a lifetime of a view.
+        """
+        self.view.get_buffer().connect("saved", lambda x: self.analyze())
+
     def analyze(self):
         """
         This function fetches the location of the file in this view
