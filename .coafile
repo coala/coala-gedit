@@ -1,0 +1,6 @@
+[Default]
+files = **/*.py
+bears = SpaceConsistencyBear, LineLengthBear
+use_spaces = True
+max_line_length = 80
+allow_trailing_whitespace = False
