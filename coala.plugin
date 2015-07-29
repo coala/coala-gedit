@@ -1,0 +1,8 @@
+[Plugin]
+Loader=python3
+Module=coala_gedit
+IAge=3
+Name=coala
+Description=Static code analysis for all languages using coala.
+Authors=Abdeali J Kothari <abdealikothari@gmail.com>
+Website=http://coala-analyzer.org
