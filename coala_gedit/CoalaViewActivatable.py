@@ -1,10 +1,13 @@
 import os
-from gi.repository import GObject, Gedit
+from gi.repository import GObject, Gedit, GtkSource
 from coalib.output.printers.ConsolePrinter import ConsolePrinter
 from coalib.output.printers.LogPrinter import LogPrinter
 from coalib.processes.Processing import execute_section
 from coalib.settings.ConfigurationGathering import gather_configuration
 from coalib.results.HiddenResult import HiddenResult
+from coalib.results.RESULT_SEVERITY import RESULT_SEVERITY
+
+from .Utils import get_mark_category
 
 
 class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
@@ -27,7 +30,18 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
         This function is called when the view is created - it will
         be called only once in a lifetime of a view.
         """
+        self.register_marks()
         self.view.get_buffer().connect("saved", lambda x: self.analyze())
+
+    def register_marks(self):
+        """
+        Creates mark-attributes for all result severities.
+        """
+        self.view.set_show_line_marks(True)
+        for name in RESULT_SEVERITY.str_dict:
+            attr = GtkSource.MarkAttributes()
+            self.view.set_mark_attributes(get_mark_category(name), attr, 0)
+            self.log_printer.info("Mark attribute created for", name)
 
     def analyze(self):
         """
