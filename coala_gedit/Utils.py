@@ -27,3 +27,9 @@ def get_mark_category(severity):
         return COALA_KEY + "." + RESULT_SEVERITY.reverse[severity]
     else:
         raise KeyError("Invalid result severity '{}'.".format(severity))
+
+
+RESULT_SEVERITY_ICONS = {
+    RESULT_SEVERITY.INFO: "dialog-information-symbolic",
+    RESULT_SEVERITY.NORMAL: "dialog-warning-symbolic",
+    RESULT_SEVERITY.MAJOR: "dialog-error-symbolic"}

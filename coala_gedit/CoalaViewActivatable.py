@@ -7,7 +7,7 @@ from coalib.settings.ConfigurationGathering import gather_configuration
 from coalib.results.HiddenResult import HiddenResult
 from coalib.results.RESULT_SEVERITY import RESULT_SEVERITY
 
-from .Utils import get_mark_category
+from .Utils import get_mark_category, RESULT_SEVERITY_ICONS
 
 
 class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
@@ -38,8 +38,9 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
         Creates mark-attributes for all result severities.
         """
         self.view.set_show_line_marks(True)
-        for name in RESULT_SEVERITY.str_dict:
+        for name, val in RESULT_SEVERITY.str_dict.items():
             attr = GtkSource.MarkAttributes()
+            attr.set_icon_name(RESULT_SEVERITY_ICONS[val])
             self.view.set_mark_attributes(get_mark_category(name), attr, 0)
             self.log_printer.info("Mark attribute created for", name)
 
