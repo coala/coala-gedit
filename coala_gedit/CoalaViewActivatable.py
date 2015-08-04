@@ -44,6 +44,26 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
             self.view.set_mark_attributes(get_mark_category(name), attr, 0)
             self.log_printer.info("Mark attribute created for", name)
 
+    def show_result(self, result):
+        """
+        Takes a result and shows it in gedit's UI.
+
+        :param result: The result to display.
+        """
+        if isinstance(result, HiddenResult):
+            return
+        if not isinstance(result.line_nr, int):
+            self.log_printer.warn(
+                "Invalid line number {} in result.".format(result.line_nr))
+            return
+
+        document = self.view.get_buffer()
+        _iter = document.get_iter_at_line(result.line_nr-1)
+        mark = document.create_source_mark(
+            None,
+            get_mark_category(result.severity),
+            _iter)
+
     def analyze(self):
         """
         This function fetches the location of the file in this view
