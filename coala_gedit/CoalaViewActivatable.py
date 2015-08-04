@@ -77,6 +77,11 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
 
         results = CoalaViewActivatable.run_coala(location.get_path())
 
+        document.remove_source_marks(document.get_start_iter(),
+                                     document.get_end_iter())
+        for section_results in results.values():
+            for result in section_results:
+                self.show_result(result)
 
     @staticmethod
     def run_coala(path):
