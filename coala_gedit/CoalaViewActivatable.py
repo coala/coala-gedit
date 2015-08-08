@@ -41,8 +41,13 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
         for name, val in RESULT_SEVERITY.str_dict.items():
             attr = GtkSource.MarkAttributes()
             attr.set_icon_name(RESULT_SEVERITY_ICONS[val])
+            attr.connect("query_tooltip_markup", self.show_mark_tooltip)
             self.view.set_mark_attributes(get_mark_category(name), attr, 0)
             self.log_printer.info("Mark attribute created for", name)
+
+    def show_mark_tooltip(self, mark_attr, mark):
+        result = getattr(mark, COALA_KEY + "Result")
+        return(str(result.origin) + ": " + str(result.message))
 
     def show_result(self, result):
         """
@@ -63,6 +68,8 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
             None,
             get_mark_category(result.severity),
             _iter)
+        setattr(mark, COALA_KEY + "Result", result)
+        self.log_printer.info("Created mark at", result.line_nr)
 
     def analyze(self):
         """
