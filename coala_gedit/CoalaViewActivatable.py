@@ -48,7 +48,7 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
 
     def show_mark_tooltip(self, mark_attr, mark):
         result = getattr(mark, COALA_KEY + "Result")
-        return(str(result.origin) + ": " + str(result.message))
+        return str(result.origin) + ": " + str(result.message)
 
     def show_result(self, result):
         """
