@@ -1,4 +1,5 @@
 import os
+
 from gi.repository import GObject, Gedit, GtkSource
 from pyprint.ConsolePrinter import ConsolePrinter
 from coalib.output.printers.LogPrinter import LogPrinter
@@ -7,7 +8,7 @@ from coalib.settings.ConfigurationGathering import gather_configuration
 from coalib.results.HiddenResult import HiddenResult
 from coalib.results.RESULT_SEVERITY import RESULT_SEVERITY
 
-from .Utils import get_mark_category, RESULT_SEVERITY_ICONS
+from .Utils import get_mark_category, RESULT_SEVERITY_ICONS, COALA_KEY
 
 
 class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
