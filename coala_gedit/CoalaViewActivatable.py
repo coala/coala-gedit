@@ -56,19 +56,17 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
 
         :param result: The result to display.
         """
-        if not isinstance(result.line_nr, int):
-            self.log_printer.warn(
-                "Invalid line number {} in result.".format(result.line_nr))
-            return
-
         document = self.view.get_buffer()
-        _iter = document.get_iter_at_line(result.line_nr-1)
-        mark = document.create_source_mark(
-            None,
-            get_mark_category(result.severity),
-            _iter)
-        setattr(mark, COALA_KEY + "Result", result)
-        self.log_printer.info("Created mark at", result.line_nr)
+
+        for sourcerange in result.affected_code:
+
+            _iter = document.get_iter_at_line(sourcerange.start.line-1)
+            mark = document.create_source_mark(
+                None,
+                get_mark_category(result.severity),
+                _iter)
+            setattr(mark, COALA_KEY + "Result", result)
+            self.log_printer.info("Created mark at", sourcerange.start.line)
 
     def analyze(self):
         """
