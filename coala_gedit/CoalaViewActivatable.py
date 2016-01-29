@@ -1,6 +1,6 @@
 import os
 from gi.repository import GObject, Gedit, GtkSource
-from coalib.output.printers.ConsolePrinter import ConsolePrinter
+from pyprint.ConsolePrinter import ConsolePrinter
 from coalib.output.printers.LogPrinter import LogPrinter
 from coalib.processes.Processing import execute_section
 from coalib.settings.ConfigurationGathering import gather_configuration
@@ -122,8 +122,7 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
                     global_bear_list=global_bears[section_name],
                     local_bear_list=local_bears[section_name],
                     print_results=lambda *args: True,
-                    log_printer=log_printer,
-                    file_diff_dict={})
+                    log_printer=log_printer)
 
                 results_for_section = []
                 for i in 1, 2:
