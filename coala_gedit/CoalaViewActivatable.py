@@ -55,8 +55,6 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
 
         :param result: The result to display.
         """
-        if isinstance(result, HiddenResult):
-            return
         if not isinstance(result.line_nr, int):
             self.log_printer.warn(
                 "Invalid line number {} in result.".format(result.line_nr))
