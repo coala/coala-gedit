@@ -101,7 +101,8 @@ class CoalaViewActivatable(GObject.Object, Gedit.ViewActivatable):
         cwd = os.getcwd()
         try:
             os.chdir(os.path.dirname(path))
-            args = ["--find-config", "--files=" + path, '-S=autoapply=false']
+            args = ["--find-config", "--limit-files", path, '-S',
+                    'autoapply=false']
             sections, local_bears, global_bears, targets = (
                 # Use `lambda *args: True` so that `gather_configuration` does
                 # nothing when it needs to request settings from user.
