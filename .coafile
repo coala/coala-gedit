@@ -8,3 +8,7 @@ allow_trailing_whitespace = False
 [autopep8]
 bears = PEP8Bear
 default_actions = PEP8Bear: ApplyPatchAction
+
+[yml]
+bears = YAMLLintBear
+files = **.yml
