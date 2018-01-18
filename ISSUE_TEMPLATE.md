@@ -1,18 +1,18 @@
 When filling an issue, please use the below template:
 
-###Description of the issue
+### Description of the issue
 
-#Steps to reproduce
+# Steps to reproduce
 1.
 2.
 3.
 
-#Actual Results
+# Actual Results
 
-#Expected Results
+# Expected Results
 
-#Reproducibility
+# Reproducibility
 
-#Additional Information
+# Additional Information
 
 (Include relevant screenshots if necessary)
